@@ -1,7 +1,9 @@
-ezshapes==1.0.2
-iniconfig==2.1.0
-packaging==25.0
-pluggy==1.6.0
-pygame==2.6.1
-Pygments==2.19.2
-pytest==8.4.1
+certifi==2026.2.25
+charset-normalizer==3.4.7
+idna==3.11
+numpy==2.4.4
+pandas==3.0.2
+python-dateutil==2.9.0.post0
+requests==2.33.1
+six==1.17.0
+urllib3==2.6.3
