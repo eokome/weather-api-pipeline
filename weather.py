@@ -12,6 +12,17 @@ def get_api_key():
     return key
 
 
+def save_weather_data(df_new, csv_path="weather_data.csv"):
+    if os.path.exists(csv_path):
+        df_existing = pd.read_csv(csv_path, dtype={"zip_code": str})
+        df_combined = pd.concat([df_existing, df_new], ignore_index=True)
+        df_combined = df_combined.drop_duplicates(subset=["zip_code", "date"], keep="last")
+    else:
+        df_combined = df_new.copy()
+    df_combined["zip_code"] = df_combined["zip_code"].astype(str)
+    df_combined.to_csv(csv_path, index=False)
+
+
 if __name__ == "__main__":
     load_dotenv()
     API_KEY = get_api_key()
@@ -75,5 +86,5 @@ if __name__ == "__main__":
     print(df.to_string(index=False))
     print(f"\nShape: {df.shape[0]} rows x {df.shape[1]} columns")
 
-    df.to_csv("weather_data.csv", index=False)
-    print("Saved to weather_data.csv")
+    save_weather_data(df)
+    print("Appended to weather_data.csv")
