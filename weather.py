@@ -1,21 +1,19 @@
 import requests
-import json
 import time
 import pandas as pd
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
-
 
 def get_api_key():
     key = os.getenv("WEATHER_API_KEY")
-    if not key:
+    if not key or not key.strip():
         raise ValueError("WEATHER_API_KEY environment variable is not set or empty")
     return key
 
 
 if __name__ == "__main__":
+    load_dotenv()
     API_KEY = get_api_key()
 
     api_url = "https://api.weatherapi.com/v1/forecast.json"
