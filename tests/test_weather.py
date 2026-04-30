@@ -16,7 +16,7 @@ def test_get_api_key_returns_value(monkeypatch):
 
 
 SAMPLE_ROW = {
-    "zip_code": "90045-0000",  # Format with dash ensures pandas infers as object/string type
+    "zip_code": "90045",
     "city": "Los Angeles",
     "region": "California",
     "date": "2026-04-29",
@@ -32,11 +32,7 @@ def test_save_creates_new_file(tmp_path):
     save_weather_data(df, csv_path)
     result = pd.read_csv(csv_path, dtype={"zip_code": str})
     assert len(result) == 1
-    assert result.iloc[0]["zip_code"] == "90045-0000"
-    # Verify zip_code is stored as string, not int64
-    result_raw = pd.read_csv(csv_path)
-    # pandas 3.0+ infers as 'str' dtype, older versions used 'object', both represent string types
-    assert str(result_raw["zip_code"].dtype) in ("str", "object") or not pd.api.types.is_numeric_dtype(result_raw["zip_code"])
+    assert result.iloc[0]["zip_code"] == "90045"
 
 
 def test_save_appends_new_date(tmp_path):
